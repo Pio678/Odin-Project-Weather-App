@@ -1,8 +1,10 @@
-import generateJoke from "./joke";
 import normalize from "./styles/normalize.css";
 import style from "./styles/style.css";
-import webpackLogo from "./assets/WebpackLogo.png";
 
-const webpackLogoElement = document.getElementById("webpack-logo");
-webpackLogoElement.src = webpackLogo;
-console.log("123");
+import loadHomepage, { loadWeatherData } from "./homepage.js";
+import getCurrentWeather from "./ApiAccess";
+
+const body = document.querySelector("body");
+
+body.appendChild(loadHomepage());
+loadWeatherData("warsaw");

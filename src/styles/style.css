@@ -17,11 +17,10 @@ body {
   min-height: 100%;
 }
 
-h3 {
-  font-size: 10rem;
-  text-align: center;
+header {
+  display: flex;
+  justify-content: center;
 }
-
-img {
-  max-width: 100%;
+.searchbar {
+  width: 40%;
 }
