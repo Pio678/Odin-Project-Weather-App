@@ -67,7 +67,19 @@ main {
   z-index: 100;
 }
 
+.error-message {
+  grid-area: 1/1/2/2;
+  height: 3rem;
+  text-align: center;
+  padding-top: 3rem;
+  font-size: 4rem;
+  color: var(--dark-blue);
+}
+.error-message.hidden {
+  visibility: collapse;
+}
 .current-weather-container {
+  grid-area: 1/1/2/2;
   height: 20rem;
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -79,6 +91,9 @@ main {
   color: var(--dark-blue);
 }
 
+.current-weather-container.hidden {
+  visibility: hidden;
+}
 .location {
   font-size: 8rem;
   font-weight: 600;
@@ -109,6 +124,7 @@ main {
   height: 18rem;
   grid-column: 1/2;
   grid-row: 2/4;
+  align-self: center;
 }
 
 .current-weather {

@@ -25,7 +25,6 @@ function createHeader() {
 
   searchbar.addEventListener("keypress", (e) => {
     if (e.key === "Enter") {
-      console.log("enter pressed");
       searchLocationWeather();
     }
   });
@@ -45,6 +44,10 @@ async function searchLocationWeather() {
 
 function createMain() {
   const main = document.createElement("main");
+
+  const errorMessage = document.createElement("H2");
+  errorMessage.classList.add("error-message", "hidden");
+  errorMessage.innerText = "can't find the location";
 
   const currentWeatherContainer = document.createElement("div");
   currentWeatherContainer.classList.add("current-weather-container");
@@ -85,7 +88,7 @@ function createMain() {
 
   currentWeatherContainer.append(location, dateTime, currentWeatherInfo);
 
-  main.append(currentWeatherContainer);
+  main.append(errorMessage, currentWeatherContainer);
 
   return main;
 }
@@ -97,8 +100,23 @@ function createFooter() {
 }
 
 export async function loadWeatherData(location) {
-  const currentWeatherData = await getCurrentApiData(location);
+  const currentWeatherContainer = document.querySelector(
+    ".current-weather-container"
+  );
 
+  const errorMessage = document.querySelector(".error-message");
+
+  try {
+    const currentWeatherData = await getCurrentApiData(location);
+    currentWeatherContainer.classList.remove("hidden");
+    displayWeatherData(currentWeatherData);
+  } catch {
+    currentWeatherContainer.classList.add("hidden");
+    errorMessage.classList.remove("hidden");
+  }
+}
+
+function displayWeatherData(currentWeatherData) {
   //setting a location
   const locationElement = document.querySelector(".location");
   locationElement.innerText = `${currentWeatherData.location.name},${currentWeatherData.location.country}`;
@@ -120,8 +138,6 @@ export async function loadWeatherData(location) {
   //setting wind
   const currentWind = document.querySelector(".current-wind");
   currentWind.innerText = `wind: ${currentWeatherData.current.wind_kph} km/h`;
-
-  console.log(currentWeatherData);
 }
 
 function createHomepage() {
